@@ -7,18 +7,22 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../js/bootstrap-paginator.js"></script>
+
     <style>
         body {  padding-top: 90px; padding-bottom: 90px;background-color: #000000}
     </style>
 </head>
-<body>
+<body onload="iop()">
 <nav class="navbar navbar-inverse navbar-fixed-top " style="background-color: #000000 ">
     <div class="container " >
 <!--        <div class="collapse navbar-collapse " >-->
 <!--            <p style="color: white">返回我的导师</p>-->
 <!--        </div>-->
         <div class="collapse navbar-collapse text-center" id="navbar" >
-            <p  class="navbar-brand " style="margin-left: auto;margin-right: auto;float: none;color: #E8BD5F">合光<br>musice</p>
+            <img src="/pinao/img/logo.png"  style="margin-left: auto;margin-right: auto;float: none;"/>
         </div>
     </div>
 </nav>
@@ -34,14 +38,14 @@
 <br><br>
 <div class="row" >
 <div class="col-md-6">
-    <img src="../img/main.png" style="width: 500px;height: 300px;float: right">
+    <img src="../img/main.png" style="width: 500px;height: 300px;float: right" >
 </div>
     <div class="col-md-6">
         <img src="../img/main.png" style="width: 500px;height: 300px;float:left;">
     </div>
 </div>
 <br>
-<div class="" >
+<div class="row" >
     <div class="col-md-6">
         <img src="../img/main.png" style="width: 500px;height: 300px;float: right">
     </div>
@@ -49,5 +53,51 @@
         <img src="../img/main.png" style="width: 500px;height: 300px;float:left;">
     </div>
 </div>
+<div id="example" style="text-align: center"> <ul id="pageLimit"></ul> </div>
+<script>
+    var pos = new Array();
+    $.ajax({
+                type: "POST",
+                url: "////",
+                dataType: "json",
+                success: function (data) {
+                    for (var i=0;i<data.length/4;i+=4)
+                        pos[i][i]={};
+                    var i=0;
+                    var i1=document.createElement('img');
+                    i1.src=data[i].img;
+                    i1.id=data[i].aid;
+                    var i2=document.createElement('img');
+                        i2.src=data[++i].img;
+                        i2.id=data[++i].aid;
+                    var i3=document.createElement('img');
+                        i3.src=data[++i].img;
+                        i3.id=data[++i].aid;
+                    var i4=document.createElement('img');
+                        i4.src=data[++i].img;
+                        i4.id=data[++i].aid;
+                }
+                    // var len=data.length;
+                    // $('#pageLimit').bootstrapPaginator({
+                    //     currentPage: 1,//当前的请求页面。
+                    //     totalPages: len,//一共多少页。
+                    //     size:"normal",//应该是页眉的大小。
+                    //     bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                    //     alignment:"right",
+                    //     numberOfPages:5,//一页列出多少数据。
+                    //     itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                    //         switch (type) {
+                    //             case "first": return "首页";
+                    //             case "prev": return "上一页";
+                    //             case "next": return "下一页";
+                    //             case "last": return "末页";
+                    //             case "page": return page;}}})
+                    // },
+                    // onPageClicked: function (event, page){
+                    //
+                    // }
+
+            })
+</script>
 </body>
 </html>

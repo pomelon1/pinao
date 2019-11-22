@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../css/abouta.css"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     <style>
-        body {  padding-top: 90px; padding-bottom: 90px;background-color:gainsboro}
+        body {  padding-top: 90px; padding-bottom: 90px;background-color:#F9F9F9;}
         .lie{
                  border:none;
                  font-size: medium;
@@ -17,6 +20,8 @@
             background-color: white;
              }
         #much:link{ link:none;}
+        a:link,a:visited{color:black;text-decoration:none}
+
 
     </style>
 </head>
@@ -27,52 +32,84 @@
         <!--            <p style="color: white">返回我的导师</p>-->
         <!--        </div>-->
         <div class="collapse navbar-collapse text-center" id="navbar" >
-            <p  class="navbar-brand " style="margin-left: auto;margin-right: auto;float: none;color: #E8BD5F">合光<br>musice</p>
+            <img src="/pinao/img/logo.png"  style="margin-left: auto;margin-right: auto;float: none;"/>
         </div>
     </div>
 </nav>
 <div class="text-center" style="margin-left:150px;margin-right: auto;float: none">
 <div style="width:200px;float: left">
- <div style="background-color: antiquewhite;height: 300px;width:100%;" class="text-center">
+ <div style="background-color: #FFF7EA;height: 300px;width:100%;" class="text-center">
      <img src="../img/main.png" class="img-circle" style="width: 100px;height: 100px;margin-top: 80px">
      <br><br>
      <p>塞尔金钢琴学院</p>
      <button type="button" class="btn btn-warning">修改机构信息</button><br>
  </div>
     <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
-        <button class="lie" style="margin-top: 18px;color: #E8BD5F">课程进度</button>
-        <button class="lie" style="margin-top: 18px;">课程管理</button>
-        <button class="lie" style="margin-top: 18px;">预约课程</button>
-        <button class="lie" style="margin-top: 18px;">导师管理</button>
-        <button class="lie" style="margin-top: 18px;">琴童管理</button>
-        <button class="lie" style="margin-top: 18px;">老师进度</button>
+        <button class="lie" style="margin-top: 18px;"><a href="main1.html" style="color: #E8BD5F">课程进度</a></button>
+        <button class="lie" style="margin-top: 18px;"><a href="main2.html">课程管理</a></button>
+        <button class="lie" style="margin-top: 18px;"><a href="main3.html">预约课程</a></button>
+        <button class="lie" style="margin-top: 18px;"><a href="main4.html">导师管理</a></button>
+        <button class="lie" style="margin-top: 18px;"><a href="main5.html">琴童管理</a></button>
+        <button class="lie" style="margin-top: 18px;"><a href="main6.html">老师进度</a></button>
     </div>
 </div>
     <div style="background-color: white;height: 180px;width:68%;float:left;margin-left: 20px" class="text-center">
-     <img src="../img/main.png" style="width: 400px;height: 180px">
+     <div style="height: 180px;background-color: #999999"></div>
         <br><br>
         <div>
         <p style="text-align: left">课程进度</p>
-            <div style="border-top: solid #E8BD5F 1px">
+            <div style="border-top: solid #E8BD5F 1px;background-color: white">
               <div>
                   <h4 style="margin-top: 80px;">锦囊课已使用<a id="much">25</a>/30节</h4>
               </div>
-                <div class="progress progress-striped active text-center" >
-                    <div class="progress-bar progress-bar-success" role="progressbar"
-                         aria-valuenow="60" aria-valuemin="0" aria-valuemax="30"
-                         style="width: 10%;">
-                        <span class="sr-only">100% 未使用</span>
+                <div class="progress progress-striped active text-center"  style="width: 650px;margin-left: 102px">
+                    <div class="progress progress-striped">
+                        <div id="jdt" class="progress-bar progress-bar-warning" role="progressbar"
+                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 25%;">
+<!--                            <span class="sr-only">20% 完成（警告）</span>-->
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="text-center" style="border-top: dotted grey 1px; color: grey; margin-top: 40px">
+
+            <div id="kcxq" class="text-center" style="border-top: dotted grey 1px; color: grey; margin-top: 40px;">
                 <h5>课程使用详情</h5>
-                <h5>王王王：已使用2次</h5>
-                <h5>王王王：已使用2次</h5>
-                <h5>王王王：已使用2次</h5>
+
             </div>
         </div>
     </div>
 </div>
+</div>
+<script>
+    window.onload = function () {
+        var num=0;
+        var j={};
+        j.oid=localStorage.getItem("oid");
+        var da=JSON.stringify(j);
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/organization/progress",
+            data:da,
+            dataType: "json",
+            success: function(data){
+            if(data.name===""){
+                document.getElementById('much').innerHTML=0;
+                document.getElementById('jdt').style.width = "100%";}
+            else {
+               for(var i=0;i<data.length;i++)
+               { var x1=document.createElement("h5");
+               x1.innerHTML=data[i].name+":"+"已使用"+data[i].classtime+"次";
+                   document.getElementById('kcxq').appendChild(x1);
+                   num+=parseInt(data[i].classtime);}}2ws
+               document.getElementById('much').innerHTML=num;
+                var wi=num/30;
+                var str=100-(Number(wi*100).toFixed(1));
+                str+="%";
+                document.getElementById('jdt').style.width =str;
+
+                }
+            })
+    }
+</script>
 </body>
 </html>

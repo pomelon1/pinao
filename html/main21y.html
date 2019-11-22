@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../css/abouta.css"></script>
+
+    <style>
+        body {  padding-top: 90px; padding-bottom: 90px;background-color:gainsboro}
+        .lie{
+                 border:none;
+                 font-size: medium;
+                 margin-top: 8px;
+                 width: 100%;
+            background-color: white;
+             }
+        a:link,a:visited{color:black;text-decoration:none}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top " style="background-color: #000000 ">
+        <div class="container " >
+            <!--        <div class="collapse navbar-collapse " >-->
+            <!--            <p style="color: white">返回我的导师</p>-->
+            <!--        </div>-->
+            <div class="collapse navbar-collapse text-center" id="navbar" >
+                <img src="/pinao/img/logo.png"  style="margin-left: auto;margin-right: auto;float: none;"/>
+            </div>
+        </div>
+    </nav>
+    <div class="text-center" style="margin-left:150px;margin-right: auto;float: none">
+        <div style="width:200px;float: left">
+            <div style="background-color: #FFF7EA;height: 300px;width:100%;" class="text-center">
+                <img src="../img/main.png" class="img-circle" style="width: 100px;height: 100px;margin-top: 80px">
+                <br><br>
+                <p>塞尔金钢琴学院</p>
+                <button type="button" class="btn btn-warning">修改机构信息</button><br>
+            </div>
+            <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
+                <button class="lie" style="margin-top: 18px;"><a href="main1.html" style="color: #E8BD5F">课程进度</a></button>
+                <button class="lie" style="margin-top: 18px;"><a href="main2.html">课程管理</a></button>
+                <button class="lie" style="margin-top: 18px;"><a href="main3.html">预约课程</a></button>
+                <button class="lie" style="margin-top: 18px;"><a href="main4.html">导师管理</a></button>
+                <button class="lie" style="margin-top: 18px;"><a href="main5.html">琴童管理</a></button>
+                <button class="lie" style="margin-top: 18px;"><a href="main6.html">老师进度</a></button>
+            </div>
+        </div>
+    <div style="background-color: white;height: 180px;width:68%;float:left;margin-left: 20px" class="text-center">
+        <div style="height: 180px;background-color: #999999"></div>
+        <br><br>
+        <div>
+            <p style="text-align: left;color: black"><a href="main2.html" style="text-decoration: none;color: black">已反馈课程</a>>详情</p>
+            <div  class="text-center" style="border-top: solid #E8BD5F 1px;background-color: white">
+                <h5>学生：<a id="wxm"></a></h5>
+                <h5>导师：<a id="wds"></a></h5>
+                <h5>课程次数：<a id="wkccs"></a></h5>
+                <div >
+                    <div class="col-md-6">
+                        <h5>课程上传时间：<h5 id="up"></h5></h5>
+                <img src="../img/main.png" style="width: 200px;height: 180px">
+                        <br>
+                        <div style="margin-top: 15px;">
+                            <button type="button" class="btn btn-warning" id="down">下载视频</button>
+                        </div>
+                    <div>
+                        <h5  >留言：<a ></a></h5>
+                        <label id="wly1">ashv\j</label>>
+                    </div></div>
+                    <div class="col-md-6">
+                        <h5>课程反馈时间：<h5 id="feed"></h5></h5>
+                <img src="../img/main.png" style="width: 200px;height: 180px">
+                        <br>
+                        <div style="margin-top: 15px;">
+                           <button type="button" class="btn btn-warning" id="feedback">下载视频</button>
+                        </div>
+                        <div>
+                            <h5  >留言：<a ></a></h5>
+                            <label id="wly2">ashv\j</label>>
+                        </div>
+                    </div>
+                    <h5 style="color: white">------------------------------------------------------------------------</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   <script>
+       alert(location.search);
+       var aa=location.search;
+       var i=aa.substr(4,1);
+       $('#wxm').innerHTML=window.m21w[i].sname;
+       $('#wds').innerHTML=window.m21w[i].aname;
+       $('#wkccs').innerHTML=window.m21w[i].classtime;
+       $('#up').innerHTML=window.m21w[i].upload;
+       $('#feed').innerHTML=window.m21w[i].feedback;
+       $('#wly1').innerHTML=window.m21w[i].smessage;
+       $('#wly2').innerHTML=window.m21w[i].amessage;
+       $('#down').click(function () {
+           window.open(window.m21w[i].uploadpath);
+       })
+       $('#feedback').click(function () {
+           window.open(window.m21w[i].feedbackpath);
+       })
+
+
+       if(window.m21w[i].smessage==="")
+       {document.getElementById('liuy').innerHTML="无";}
+       else
+       {document.getElementById('liuy').innerHTML=window.m21w[i].smessage;}
+
+   </script>
+</body>
+</html>
