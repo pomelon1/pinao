@@ -91,6 +91,7 @@
             url: "http://localhost:8080/organization/progress",
             data:da,
             dataType: "json",
+            contentType:"application/json; charset=UTF-8",
             success: function(data){
             if(data.name===""){
                 document.getElementById('much').innerHTML=0;
@@ -98,9 +99,9 @@
             else {
                for(var i=0;i<data.length;i++)
                { var x1=document.createElement("h5");
-               x1.innerHTML=data[i].name+":"+"已使用"+data[i].classtime+"次";
+               x1.innerHTML=data[i].tname+":"+"已使用"+data[i].classtime+"次";
                    document.getElementById('kcxq').appendChild(x1);
-                   num+=parseInt(data[i].classtime);}}2ws
+                   num+=parseInt(data[i].classtime);}}
                document.getElementById('much').innerHTML=num;
                 var wi=num/30;
                 var str=100-(Number(wi*100).toFixed(1));

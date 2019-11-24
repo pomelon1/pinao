@@ -42,10 +42,10 @@
             <button type="button" class="btn btn-warning">修改机构信息</button><br>
         </div>
         <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
-            <button class="lie" style="margin-top: 18px;"><a href="main1.html" style="color: #E8BD5F">课程进度</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main1.html" >课程进度</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main2.html">课程管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main3.html">预约课程</a></button>
-            <button class="lie" style="margin-top: 18px;"><a href="main4.html">导师管理</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main4.html" style="color: #E8BD5F">导师管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main5.html">琴童管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main6.html">老师进度</a></button>
         </div>
@@ -54,7 +54,8 @@
         <div style="height: 180px;background-color: #999999"></div>
         <br><br>
         <p style="text-align: left">我的导师</p>
-        <div style="background-color: white;height: 200px;border-top: #E8BD5F solid 1px">
+        <div id="mg" style="background-color: white;height: 200px;width: 100%;border-top: #E8BD5F solid 1px;float:left;">
+            <img src="../img/main.png" class="img-circle" style="width: 60px;height: 60px;margin-top: 20px">
             <img src="../img/main.png" class="img-circle" style="width: 60px;height: 60px;margin-top: 20px">
             <img src="../img/main.png" class="img-circle" style="width: 60px;height: 60px;margin-top: 20px">
             <img src="../img/main.png" class="img-circle" style="width: 60px;height: 60px;margin-top: 20px">
@@ -64,18 +65,36 @@
     </div>
 </div>
 <script>
-    $('body').onload(function () {
-
-    $.ajax({
-        type: "GET",
-        url: "/organization/artist",
-        data:oid,
-        dataType: "json",
+    window.onload=function () {
+        var j={};
+        j.oid=localStorage.getItem("oid");
+        var da=JSON.stringify(j);
+        $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/organization/artist",
+        data:da,
+        contentType:"application/json; charset=UTF-8",
         success: function(data){
+            if(data.rs==="f")
+            {window.location.href="main4add.html";}
+            else
+            {
+                for(var i=0;i<data.length;i++)
+                var img1=document.createElement('img');
+                img1.src=data[i].img;
+                img1.alt=data[i].aname;
+                img1.className="img-circle";
+                img1.style.width="60px";
+                img1.style.height="60px";
+                img1.style.marginTop="20px";
+                document.getElementById('mg').appendChild(img1);
+
+
+            }
            //没有参数
         }
     })
-    })
+    }
 </script>
 </body>
 </html>

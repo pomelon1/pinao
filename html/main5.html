@@ -42,11 +42,11 @@
             <button type="button" class="btn btn-warning">修改机构信息</button><br>
         </div>
         <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
-            <button class="lie" style="margin-top: 18px;"><a href="main1.html" style="color: #E8BD5F">课程进度</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main1.html" >课程进度</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main2.html">课程管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main3.html">预约课程</a></button>
-            <button class="lie" style="margin-top: 18px;"><a href="main4.html">导师管理</a></button>
-            <button class="lie" style="margin-top: 18px;"><a href="main5.html">琴童管理</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main4.html" >导师管理</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main5.html" style="color: #E8BD5F">琴童管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main6.html">老师进度</a></button>
         </div>
     </div>
@@ -76,27 +76,27 @@
                     </tr>
                     </thead>
                     <tbody id="qtgl">
-                    <tr class="active ">
-                        <td >xxx</td>
-                        <td>女</td>
-                        <td>已学习5次</td>
-                        <td>--</td>
-                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>
-                    </tr>
-                    <tr class="active">
-                        <td>xxx</td>
-                        <td>女</td>
-                        <td>已学习5次</td>
-                        <td>--</td>
-                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>
-                    </tr>
-                    <tr class="active">
-                        <td>xxx</td>
-                        <td>女</td>
-                        <td>已学习5次</td>
-                        <td>--</td>
-                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>
-                    </tr>
+<!--                    <tr class="active ">-->
+<!--                        <td >xxx</td>-->
+<!--                        <td>女</td>-->
+<!--                        <td>已学习5次</td>-->
+<!--                        <td>&#45;&#45;</td>-->
+<!--                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>-->
+<!--                    </tr>-->
+<!--                    <tr class="active">-->
+<!--                        <td>xxx</td>-->
+<!--                        <td>女</td>-->
+<!--                        <td>已学习5次</td>-->
+<!--                        <td>&#45;&#45;</td>-->
+<!--                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>-->
+<!--                    </tr>-->
+<!--                    <tr class="active">-->
+<!--                        <td>xxx</td>-->
+<!--                        <td>女</td>-->
+<!--                        <td>已学习5次</td>-->
+<!--                        <td>&#45;&#45;</td>-->
+<!--                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>-->
+<!--                    </tr>-->
                     </tbody>
                 </table>
                 <div>
@@ -114,19 +114,22 @@
 
 </div>
 <script>
-
+    var arr=[];
     function f(){
-        var main5data;
-        window.m52d={};
+        var j={};
+        j.oid=localStorage.getItem("oid");
+        var da=JSON.stringify(j);
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "/organization/student",
-        data:window.oid,
+        data:da,
         dataType: "json",
+        contentType:"application/json; charset=UTF-8",
         success: function(data){
-            main5data = data;
-            for(var i=0;i<data.length;i++) {
-                if (data[i].feedback === "") {
+            arr=new Array(data.length);
+            // main5data = data;
+            localStorage.setItem("main5data",JSON.stringify(data));
+            for(var i=0,m=0;i<data.length;i++) {
                     var w1=document.createElement('tr');
                     w1.className="active";
                     var w11=document.createElement('td');
@@ -137,9 +140,10 @@
                     w13.innerHTML=data[i].upload;
                     var w14=document.createElement('td');
                     w14.innerHTML=data[i].classtime;
+                    var w16=document.createElement('td');
                     var w15=document.createElement('button');
-                    w15.id=i;
-                    w15.onclick=bbb(i);
+                    w15.id="w"+i;
+                    arr[m++]=i;
                     w15.type="button";
                     w15.className="btn btn-warning";
                     w15.style.fontSize="5px";
@@ -149,25 +153,35 @@
                     w1.appendChild(w12);
                     w1.appendChild(w13);
                     w1.appendChild(w14);
-                    w1.appendChild(w15);
-                    document.getElementById('wfkkc').appendChild(w1);
-                }
+                    w1.appendChild(w16);
+                    w16.appendChild(w15);
+                    document.getElementById('qtgl').appendChild(w1);
+
             }
+            for(var j=0;j<m;j++) {
+                var b='#w'+arr[j];
+                $("#qtgl").on('click',b, function () {
+                    // alert($(this).attr("id"))
+                    bbb($(this).attr("id"))
+                });
+            }
+
         }
     })
     }
     function bbb(i) {
+        var main5data=JSON.parse(localStorage.getItem("main5data"));
         var j={};
         j.fid=main5data[i].fid;
         j.sid=main5data[i].sid;
         var aaa=JSON.stringify(j);
         $.ajax({
-            type: "GET",
-            url: "/organization/artist",
+            type: "POST",
+            url: "http://localhost:8080/organization/artist",
             data:aaa,
             dataType: "json",
             success: function(data){
-             window.m52d=data;
+             localStorage.setItem("window.m52d",data);
             }
         })
     }

@@ -32,51 +32,70 @@
     <h5 style="color: grey">台光汁划导师匡全部由海内外知名音乐学院钢琴专业的博硕士生及在取救师组成</h5>
 </div>
 <br><br>
-<div >
+<div class="form-inline text-center">
     <input type="text" class="form-control" style="width: 400px;background-color: black;margin-right: auto;margin-left: auto;float: none;">
+    <button id="find" type="button" class="btn btn-info" style="width: 200px;background-color:#E8BD5F;">搜&nbsp索</button>
 </div>
 <br><br>
 <div class="row" >
-<div class="col-md-6">
-    <img src="../img/main.png" style="width: 500px;height: 300px;float: right" >
+<div class="col-md-6" id="one">
+<!--    <img src="../img/main.png" style="width: 500px;height: 300px;float: right;z-index: -1" >-->
 </div>
-    <div class="col-md-6">
-        <img src="../img/main.png" style="width: 500px;height: 300px;float:left;">
+    <div class="col-md-6 " id="two">
+<!--        <img src="../img/main.png" style="width: 500px;height: 300px;float:left;">-->
     </div>
 </div>
+<div id="page"></div>
 <br>
-<div class="row" >
-    <div class="col-md-6">
-        <img src="../img/main.png" style="width: 500px;height: 300px;float: right">
-    </div>
-    <div class="col-md-6">
-        <img src="../img/main.png" style="width: 500px;height: 300px;float:left;">
-    </div>
-</div>
-<div id="example" style="text-align: center"> <ul id="pageLimit"></ul> </div>
+<!--<div class="row" id="two">-->
+<!--    <div class="col-md-6">-->
+<!--        <img src="../img/main.png" style="width: 500px;height: 300px;float: right">-->
+<!--    </div>-->
+<!--    <div class="col-md-6">-->
+<!--        <img src="../img/main.png" style="width: 500px;height: 300px;float:left;">-->
+<!--    </div>-->
+<!--</div>-->
+<!--<div id="example" style="text-align: center"> <ul id="pageLimit"></ul> </div>-->
 <script>
-    var pos = new Array();
+    window.onload=function(){
     $.ajax({
                 type: "POST",
-                url: "////",
+                url: "http://localhost:8080/teacherchoose1",
                 dataType: "json",
                 success: function (data) {
-                    for (var i=0;i<data.length/4;i+=4)
-                        pos[i][i]={};
-                    var i=0;
+                   window.num=data.length/4;
+                    for(var i=0;i<=num;i++){
+                       var b1=document.createElement('button');
+                       b1.id="b"+i;
+                       b1.innerHTML=i+1;
+                       b1.style.width="20px";
+                       b1.style.height="20px";
+                       b1.className="btn btn-info";
+                       document.getElementById('page').appendChild(b1);
+                    }
+                    // for (var i=0;i<data.length/4;i+=4)
+                    {
                     var i1=document.createElement('img');
-                    i1.src=data[i].img;
-                    i1.id=data[i].aid;
-                    var i2=document.createElement('img');
-                        i2.src=data[++i].img;
-                        i2.id=data[++i].aid;
-                    var i3=document.createElement('img');
-                        i3.src=data[++i].img;
-                        i3.id=data[++i].aid;
-                    var i4=document.createElement('img');
-                        i4.src=data[++i].img;
-                        i4.id=data[++i].aid;
-                }
+                    i1.src=data[0].apath;
+                    i1.id=data[1].aid;
+                    i1.style.zIndex="-1";
+                    i1.style.width="500px";
+                    i1.style.height="300px";
+                    i1.style.float="right";
+                    // var i2=document.createElement('img');
+                    //     i2.src=data[2].apath;
+                    //     i2.id=data[2].aid;
+                    //     var i3=document.createElement('img');
+                    //     i3.src=data[3].apath;
+                    //     i3.id=data[3].aid;
+                    // var i4=document.createElement('img');
+                    //     i4.src=data[4].apath;
+                    //     i4.id=data[4].aid;
+                        document.getElementById('one').appendChild(i1);
+                        // document.getElementById('one').appendChild(i2);
+                        // document.getElementById('two').appendChild(i3);
+                        // document.getElementById('two').appendChild(i4);
+                }}
                     // var len=data.length;
                     // $('#pageLimit').bootstrapPaginator({
                     //     currentPage: 1,//当前的请求页面。
@@ -96,6 +115,30 @@
                     // onPageClicked: function (event, page){
                     //
                     // }
+
+            })}
+
+    for(var j=0;j<num;j++) {
+        $("#one").on('click',"#b"+1, function () {
+            aaa($(this).attr("aid"))
+        });
+    }
+ function aaa(aid){
+        var j={};
+        j.aid=aid;
+        var da=JSON.stringify(j);
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/",
+            data:da,
+            dataType: "json",
+            success: function (data) {
+                localStorage.setItem("anna",JSON.stringify(data));
+                window.location.href="dszsym.html";
+            }
+        })
+ }
+    $('find').click(function () {
 
             })
 </script>

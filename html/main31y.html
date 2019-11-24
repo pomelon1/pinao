@@ -10,7 +10,7 @@
     <script src="../css/abouta.css"></script>
 
     <style>
-        body {  padding-top: 90px; padding-bottom: 90px;background-color:gainsboro}
+        body {  padding-top: 90px; padding-bottom: 90px;background-color:#F9F9F9;}
         .lie{
                  border:none;
                  font-size: medium;
@@ -42,9 +42,9 @@
             <button type="button" class="btn btn-warning">修改机构信息</button><br>
         </div>
         <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
-            <button class="lie" style="margin-top: 18px;"><a href="main1.html" style="color: #E8BD5F">课程进度</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main1.html" >课程进度</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main2.html">课程管理</a></button>
-            <button class="lie" style="margin-top: 18px;"><a href="main3.html">预约课程</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main3.html" style="color: #E8BD5F">预约课程</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main4.html">导师管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main5.html">琴童管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main6.html">老师进度</a></button>
@@ -61,22 +61,9 @@
                 <h5>导师：<a id="wkcsc"></a></h5>
                 <div style="border-top: dotted grey 1px">
                     <h5 style="margin-top: 20px">参与琴童</h5>
-                    <table class="table " >
-                        <thead>
-                        </thead>
-                        <tbody style="border:none">
-                        <tr id="name">
-<!--                            <td>张三</td>-->
-<!--                            <td>张三</td>-->
-<!--                            <td>张三</td>-->
-<!--                            <td>张三</td>-->
-<!--                            <td>张三</td>-->
-<!--                            <td>张三</td>-->
-                        </tr>
-                        </tbody>
-                    </table>
+                 <h5 class="text-center" id="name"></h5>
                     <div style="margin-top: 30px;">
-                        <button type="button" class="btn btn-warning">修改</button><br>
+<!--                        <button type="button" class="btn btn-warning">修改</button><br>-->
                     </div>
                 </div>
             </div>
@@ -84,25 +71,31 @@
     </div>
 </div>
 <script>
-    var aa=location.search;
-    var i=aa.substr(4,1);
-    var riqi=m31y[i].datetime.substr(1,10);
-    var time=m31y[i].datetime.substr(10,10);
-    $('#wds').innerHTML=time;
-    $('#wxm').innerHTML=riqi;
-    $('#wkcsc').innerHTML=m31y[i].aname;
-    for(var i=0;i<m31y[i].length;i++)
-    {
-        var w11=document.createElement('td');
-        w11.id="p";
-        $('#name').appendChild(w11);
-        var inp=document.createElement('input');
-        inp.placeholder=m31y[i].students;
-        inp.vaule=m31y[i].suid;
-        $('#p').appendChild(inp);
+    window.onload=function () {
 
+
+        var m31y = JSON.parse(localStorage.getItem("m31y"));
+        var aa = location.search;
+        var i = aa.substr(5,2);
+        // alert(i)
+        console.log(m31y)
+        document.getElementById('wds').innerHTML=m31y[i].sutime;
+        document.getElementById('wxm').innerHTML= m31y[i].sudate;
+        document.getElementById('wkcsc').innerHTML = m31y[i].aname;
+        document.getElementById('name').innerHTML = m31y[i].sname;
+
+
+        // for (var i = 0; i < m31y[i].length; i++) {
+        //     var w11 = document.createElement('td');
+        //     w11.id = "p";
+        //     document.getElementById('name').appendChild(w11);
+        //     var inp = document.createElement('input');
+        //     inp.placeholder = m31y[i].allstudent;
+        //     inp.vaule = m31y[i].suid;
+        //     document.getElementById('p').appendChild(inp);
+        //
+        // }
     }
-
 
 </script>
 </body>

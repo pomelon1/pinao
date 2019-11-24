@@ -42,12 +42,12 @@
             <button type="button" class="btn btn-warning">修改机构信息</button><br>
         </div>
         <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
-            <button class="lie" style="margin-top: 18px;"><a href="main1.html" style="color: #E8BD5F">课程进度</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main1.html" >课程进度</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main2.html">课程管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main3.html">预约课程</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main4.html">导师管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main5.html">琴童管理</a></button>
-            <button class="lie" style="margin-top: 18px;"><a href="main6.html">老师进度</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main6.html" style="color: #E8BD5F">老师进度</a></button>
         </div>
     </div>
     <div style="background-color: white;height: 180px;width:68%;float:left;margin-left: 20px" class="text-center">
@@ -66,31 +66,31 @@
                         <th class="text-center">--</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr class="active">
-                        <td>1</td>
-                        <td>蔡男</td>
-                        <td>女</td>
-                        <td>已上传0次</td>
-                        <td>1234536789</td>
-                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">修改</button></td>
-                    </tr>
-                    <tr class="active">
-                        <td>1</td>
-                        <td>蔡男</td>
-                        <td>女</td>
-                        <td>已上传0次</td>
-                        <td>1234536789</td>
-                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">修改</button></td>
-                    </tr>
-                    <tr class="active">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><img src="../img/zanting.png"/></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <tbody id="ui">
+<!--                    <tr class="active">-->
+<!--                        <td>1</td>-->
+<!--                        <td>蔡男</td>-->
+<!--                        <td>女</td>-->
+<!--                        <td>已上传0次</td>-->
+<!--                        <td>1234536789</td>-->
+<!--                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">修改</button></td>-->
+<!--                    </tr>-->
+<!--                    <tr class="active">-->
+<!--                        <td>1</td>-->
+<!--                        <td>蔡男</td>-->
+<!--                        <td>女</td>-->
+<!--                        <td>已上传0次</td>-->
+<!--                        <td>1234536789</td>-->
+<!--                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">修改</button></td>-->
+<!--                    </tr>-->
+<!--                    <tr class="active">-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                        <td><img src="../img/zanting.png"/></td>-->
+<!--                        <td></td>-->
+<!--                        <td></td>-->
+<!--                    </tr>-->
 
                     </tbody>
                 </table>
@@ -100,11 +100,15 @@
     </div>
 </div>
 <script>
-    $('body').onload(function () {
+   window.onload=function () {
+       var j={};
+       j.oid=localStorage.getItem("oid");
+       var da=JSON.stringify(j);
         $.ajax({
-            type: "GET",
-            url: "/organization/teacher",
-            data:oid,
+            type: "POST",
+            url: "http://localhost:8080/organization/teacher",
+            data:da,
+            contentType:"application/json; charset=UTF-8",
             dataType: "json",
             success: function(data){
                 for(var i=0;i<data.length;i++) {
@@ -133,10 +137,10 @@
                         w1.appendChild(w13);
                         w1.appendChild(w14);
                         w1.appendChild(w15);
-                        document.getElementById('wfkkc').appendChild(w1);}}
+                        document.getElementById('ui').appendChild(w1);}}
             }
         })
-    })
+    }
 </script>
 </body>
 </html>

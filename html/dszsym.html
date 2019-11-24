@@ -23,34 +23,48 @@
         </div>
     </div>
 </nav>
-<div class="col-md-12 text-center">
-    <img src="../img/main.png" style="width: 500px;height: 300px">
+<div class="text-center row" style="margin-top: 60px">
+    <div class="col-md-4 text-right">
+        <h4 class="">老师姓名：<h4 id="aname"></h4></h4>
+        <h4>老师年龄：<h4 id="age"></h4></h4>
+        <h4>所授课程：<h4 id="object"></h4></h4>
+        <h4>所获荣誉：<h4 id="honour"></h4></h4>
+        <h4>个人简介：<h4 id="information"></h4></h4>
+        <button id="add" class="btn btn-info" style="background-color: #E8BD5F;width: 100px;">添加导师</button>
+    </div>
+    <div class="col-md-8 text-center">
+    <img src="../img/main.png" style="width: 500px;height: 300px;">
+    </div>
+
 </div>
 
-<div style="margin-top: 360px;width: 100%">
-<div class="col-md-4 text-center">
-    <img src="../img/main.png" style="width: 80px;height: 80px">
-    <br>
-    <p>教龄13年</p>
-</div>
-
-<div class="col-md-4 text-center">
-    <img src="../img/main.png" style="width: 80px;height: 80px">
-    <br>
-    <p>负责类型<br>
-    (全年龄赛前冲刺)</p>
-</div>
-<div class="col-md-4 text-center" style="border-left: solid grey 1px">
-    <button type="button" class="btn btn-warning" style="margin-top: 35px;margin-bottom: 80px">添加导师</button><br>
-</div>
-</div>
-<br>
-<footer>
-   <div class="text-center"><p>旅美青年钢琴家<br>
-        美国国际学者联盟荣誉会员<br>
-        美国波士顿地区中国学生学者联合会主席<br>
-        美国波士顿大学全额奖学金钢琴演奏博士</p>
-   </div>
 </footer>
+<script>
+    var info=JSON.parse(localStorage.getItem("anna"));
+    window.onload=function () {
+        document.getElementById("aname").innerHTML=info.aname;
+        document.getElementById("age").innerHTML=info.age;
+        document.getElementById("object").innerHTML=info.object;
+        document.getElementById("honour").innerHTML=info.honour;
+        document.getElementById("information").innerHTML=info.information;
+    }
+    $('#add').click(function () {
+        var j={};
+        j.aid=info.aid;
+        j.oid=localStorage.getItem("oid");
+        var da=JSON.stringify(j);
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/organization/artist",
+                data:da,
+                contentType:"application/json; charset=UTF-8",
+                dataType: "json",
+                success: function(data){
+                   alert("添加成功")
+                    window.location.href="main4.html"
+                }
+            })
+    })
+</script>
 </body>
 </html>

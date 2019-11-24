@@ -8,10 +8,9 @@
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../css/abouta.css"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <style>
-        body {  padding-top: 90px; padding-bottom: 90px;background-color:#F9F9F9;}
+        body {  padding-top: 90px; padding-bottom: 90px;background-color:gainsboro}
         .lie{
                  border:none;
                  font-size: medium;
@@ -44,53 +43,36 @@
         </div>
         <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
             <button class="lie" style="margin-top: 18px;"><a href="main1.html" >课程进度</a></button>
-            <button class="lie" style="margin-top: 18px;"><a href="main2.html" style="color: #E8BD5F">课程管理</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main2.html">课程管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main3.html">预约课程</a></button>
-            <button class="lie" style="margin-top: 18px;"><a href="main4.html">导师管理</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main4.html" style="color: #E8BD5F">导师管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main5.html">琴童管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main6.html">老师进度</a></button>
         </div>
     </div>
-    <div style="background-color: white;height: 180px;width:68%;float:left;margin-left: 20px" class="text-center">
+    <div style="background-color: white;height: 180px;width:68%;float:left;margin-left: 20px" >
         <div style="height: 180px;background-color: #999999"></div>
         <br><br>
-        <div>
-            <p style="text-align: left"><a href="main2.html" style="text-decoration: none;color: black">未反馈课程</a>>详情</p>
-            <div  class="text-center" style="border-top: solid #E8BD5F 1px;background-color: white">
-                <h5>学生：<a id="wxm"></a></h5>
-                <h5>导师：<a id="wds"></a></h5>
-                <h5>课程上传时间：<a id="wkcsc"></a></h5>
-                <h5>课程次数：<a id="wkccs"></a></h5>
-                <img id="down" src="../img/main.png" style="width: 200px;height: 180px">
-                <h5 class="text-left" style="margin-left: 280px">留言：</h5>
-                <label id="liuy"></label>
-            </div>
+        <p style="text-align: left">我的导师</p>
+        <div class="form-inline row" style="background-color: white;height: 120px;border-top: #E8BD5F solid 1px">
+           <h5 style="color: grey;margin-left: 70px;margin-top: 44px;float:left;" class="text-left">您还未预约大师课程</h5>
+            <button type="button" class="btn btn-warning" style="float: right;margin-right: 50px;margin-top: 44px;"><a href="../jgglyscdl3.html" style="color:white">选择导师</a></button><br>
+        </div>
         </div>
     </div>
 </div>
 <script>
-    // alert(location.search);
-    var aa=location.search;
-    var i=aa.substr(5,2);
-    var op1=localStorage.getItem("op");
-    var op=JSON.parse(op1);
-    console.log("xxxxxxxx")
-    console.log(localStorage.getItem("op"))
-    // alert(i)
-    document.getElementById('wxm').innerHTML=op[i].sname;
-    document.getElementById('wds').innerHTML=op[i].aname;
-    document.getElementById('wkcsc').innerHTML=op[i].uploaddatetime;
-    document.getElementById('wkccs').innerHTML=op[i].classtime;
-    document.getElementById('down').click(function () {
-        window.open(op[i].uploadpath);
+    $('body').onload(function () {
+    $.ajax({
+        type: "GET",
+        url: "/organization/artist",
+        data:oid,
+        dataType: "json",
+        success: function(data){
+           //没有参数
+        }
     })
-    if(op[i].umessage===undefined)
-    {
-        document.getElementById('liuy').innerHTML="无";
-    } else {
-        document.getElementById('liuy').innerHTML=op[i].umessage;
-    }
-
+    })
 </script>
 </body>
 </html>

@@ -8,17 +8,20 @@
     <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../css/abouta.css"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <style>
-        body {  padding-top: 90px; padding-bottom: 90px;background-color:gainsboro}
+        body {  padding-top: 90px; padding-bottom: 90px;background-color:#F9F9F9;}
         .lie{
                  border:none;
                  font-size: medium;
                  margin-top: 8px;
                  width: 100%;
             background-color: white;
+
              }
         a:link,a:visited{color:black;text-decoration:none}
+
     </style>
 </head>
 <body>
@@ -43,7 +46,7 @@
         <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
             <button class="lie" style="margin-top: 18px;"><a href="main1.html" >课程进度</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main2.html">课程管理</a></button>
-            <button class="lie" style="margin-top: 18px;"><a href="main3.html">预约课程</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main3.html" style="color: #E8BD5F">预约课程</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main4.html">导师管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main5.html">琴童管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main6.html">老师进度</a></button>
@@ -52,54 +55,50 @@
     <div style="background-color: white;height: 180px;width:68%;float:left;margin-left: 20px" class="text-center">
         <div style="height: 180px;background-color: #999999"></div>
         <br><br>
-        <div class="text-right">            <button type="button" class="btn btn-warning text-left" >预约课程</button><br>
+        <div class="text-right">
+            <button id="sub" type="button" class="btn btn-warning text-left" >预约课程</button><br>
         </div>
         <div>
             <p style="text-align: left">已预约课程</p>
             <div style="border-top: solid #E8BD5F 1px;background-color: white">
                 <table class="table">
                     <thead>
-                    <tr >
-                        <th class="text-center">时间</th>
-                        <th class="text-center">导师</th>
-                        <th class="text-center">处理状态</th>
-                        <th class="text-center">--</th>
-                    </tr>
+<!--                    <tr >-->
+<!--                        <th class="text-center">时间</th>-->
+<!--                        <th class="text-center">导师</th>-->
+<!--                        <th class="text-center">处理状态</th>-->
+<!--                        <th class="text-center">&#45;&#45;</th>-->
+<!--                    </tr>-->
                     </thead>
                     <tbody id="noover">
-                    <tr class="active">
-                        <td>2019.10.21&nbsp;11:29</td>
-                        <td>蔡男</td>
-                        <td>未确认</td>
-                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>
             <div style=";margin-top: 13px;">
                 <p style="text-align: left">已结束课程</p>
-            <div style="border-top: solid #E8BD5F 1px;height: 150px;background-color: white">
+            <div style="border-top: solid #E8BD5F 1px;background-color: white">
                 <table class="table">
                     <thead>
                     <tr >
-                    <tr >
-                        <th class="text-center">时间</th>
-                        <th class="text-center">导师</th>
-                        <th class="text-center">--</th>
-                    </tr>
+
+                        <th class="text-center"><h5 id="x1"></h5></th>
+                        <th class="text-center"><h5 id="x2"></h5></th>
+                        <th class="text-center"><h5 id="x5"></h5></th>
+
                     </tr>
                     </thead>
                     <tbody id="over">
-                    <tr class="active">
-                        <td>2019.10.21&nbsp;11:29</td>
-                        <td>蔡男</td>
-                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>
-                    </tr>
-                    <tr class="active">
-                        <td>2019.10.21&nbsp;11:29</td>
-                        <td>蔡男</td>
-                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>
-                    </tr>
+<!--                    <tr class="active">-->
+<!--                        <td>2019.10.21&nbsp;11:29</td>-->
+<!--                        <td>蔡男</td>-->
+<!--                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>-->
+<!--                    </tr>-->
+<!--                    <tr class="active">-->
+<!--                        <td>2019.10.21&nbsp;11:29</td>-->
+<!--                        <td>蔡男</td>-->
+<!--                        <td><button type="button" class="btn btn-warning" style="font-size: 5px;">详情</button></td>-->
+<!--                    </tr>-->
                     </tbody>
                 </table>
             </div>
@@ -108,65 +107,105 @@
     </div>
 </div>
 <script>
+    $("#sub").click(function () {
+        window.location.href="main3yykc.html";
+    })
+    var arr=[];
+    var arr2=[];
     function jump(i) {
         var url = 'main31y.html' + '?id=' + i;
         window.open(url);
     }
     window.m31y={};
-    $('body').onload(function () {
+    var j={};
+    var q=0,p=0;
+    j.oid=localStorage.getItem("oid");
+    var da=JSON.stringify(j);
+    window.onload=function () {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/organization/Subscribe",
-            data:oid,
+            url: "http://localhost:8080/organization/subscribe",
+            data:da,
             dataType: "json",
+            contentType:"application/json; charset=UTF-8",
             success: function(data){
-                m31y=data;
-                for(var i=0;i<data.length;i++) {
-                    if (data[i].complete === "") {
+              console.log(data);
+                localStorage.setItem("m31y",JSON.stringify(data));
+                // localStorage.setItem("m31y",JSON.stringify(data))
+                for(var i=0,m=0,n=0;i<data.length;i++) {
+                    if (data[i].complete === "0") {
                         var w1=document.createElement('tr');
                         w1.className="active";
                         var w11=document.createElement('td');
-                        w11.innerHTML=data[i].datetime;
+                        w11.innerHTML=data[i].sudate+" "+data[i].sutime;
                         var w12=document.createElement('td');
-                        w12.innerHTML=data[i].Aname;
+                        w12.innerHTML=data[i].aname;
+                        var w13=document.createElement('td');
+                        w13.innerHTML="未确认";
+                        var w14=document.createElement('td');
                         var w15=document.createElement('button');
-                        w15.id=i;
+                        w15.id="w"+i;
+                        w15.className="active";
+                        arr[m++]=i;
                         w15.type="button";
                         w15.className="btn btn-warning";
                         w15.style.fontSize="5px";
-                        w15.text="详情";
-                        w15.onclick=jump(i);
+                        w15.zIndex="-1";
+                        w15.position= "absolute";
+                        w15.innerHTML="详情";
+                        // w15.onclick=jump(i);
                         w1.appendChild(w11);
                         w1.appendChild(w12);
+                        w1.appendChild(w13);
                         w1.appendChild(w15);
-                        document.getElementById('over').appendChild(w1);
+                        w1.appendChild(w14);
+                        w14.appendChild(w15);
+
+                        document.getElementById('noover').appendChild(w1);
                     }
-                    else{  var y1=document.createElement('tr');
+                    else{
+                        var y1=document.createElement('tr');
                         y1.className="active";
                         var y11=document.createElement('td');
-                        y11.innerHTML=data[i].datetime;
+                        y11.innerHTML=data[i].sudate+" "+data[i].sutime;
                         var y12=document.createElement('td');
-                        y12.innerHTML=data[i].Aname;
-                        var y13=document.createElement('td');
-                        y13.innerHTML=data[i].complete;
+                        y12.innerHTML=data[i].aname;
                         var y15=document.createElement('button');
-                        y15.id=i;
+                        var y14=document.createElement('td');
+                        y15.id="y"+i;
+                        arr2[n++]=i;
                         y15.type="button";
                         y15.className="btn btn-warning";
                         y15.style.fontSize="5px";
-                        y15.text="详情";
-                        y15.onclick=jump(i);
+                        y15.innerHTML="详情";
+                        // y15.onclick=jump(i);
                         y1.appendChild(y11);
                         y1.appendChild(y12);
-                        y1.appendChild(y13);
                         y1.appendChild(y15);
-                        document.getElementById('nonver').appendChild(y1); }
+                        y1.appendChild(y14);
+                        y14.appendChild(y15);
+                        document.getElementById('over').appendChild(y1); }
+                }
+                // alert(arr)
+                for(var j=0;j<m;j++) {
+                    var b='#w'+arr[j];
+                    $("#noover").on('click',b, function () {
+                        // alert($(this).attr("id"))
+                        jump($(this).attr("id"))
+                    });
+                }
+                for(var j=0;j<n;j++) {
+                    var b='#y'+arr2[j];
+                    $("#over").on('click',b, function () {
+                        // alert($(this).attr("id"))
+                        jump($(this).attr("id"))
+                    });
                 }
             }
 
         })
 
-    })
+    }
 
 </script>
 </body>

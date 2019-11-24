@@ -44,11 +44,11 @@
             <button type="button" class="btn btn-warning">修改机构信息</button><br>
         </div>
         <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
-            <button class="lie" style="margin-top: 18px;"><a href="main1.html" style="color: #E8BD5F">课程进度</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main1.html" >课程进度</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main2.html">课程管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main3.html">预约课程</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main4.html">导师管理</a></button>
-            <button class="lie" style="margin-top: 18px;"><a href="main5.html">琴童管理</a></button>
+            <button class="lie" style="margin-top: 18px;"><a href="main5.html" style="color: #E8BD5F">琴童管理</a></button>
             <button class="lie" style="margin-top: 18px;"><a href="main6.html">老师进度</a></button>
         </div>
     </div>
@@ -127,13 +127,12 @@
             }
         });
     });
+      var m52d=JSON.parse(localStorage.getItem("main5data"));
         $('body').onload(function () {
-            $('#time').innerHTML=window.m52d.classtime;
-            $('#xssm').placeholder=window.m52d.sname;
-            $('#ssex').placeholder=window.m52d.ssex;
-            $('#aGe').placeholder=window.m52d.sage;
-
-
+           document.getElementById('time').innerHTML=m52d.classtime;
+           document.getElementById('xssm').placeholder=m52d.sname;
+            document.getElementById('ssex').placeholder=m52d.ssex;
+            document.getElementById('age').placeholder=m52d.sage;
             for(var i=0;i<window.m52d.length;i++) {
                {
                     var w1=document.createElement('tr');
@@ -141,11 +140,11 @@
                     var w11=document.createElement('td');
                     w11.innerHTML=i;
                     var w11=document.createElement('td');
-                    w11.innerHTML=window.m52d[i].aname;
+                    w11.innerHTML=m52d[i].aname;
                     var w12=document.createElement('td');
-                    w12.innerHTML=window.m52d[i].upload;
+                    w12.innerHTML=m52d[i].upload;
                     var w13=document.createElement('td');
-                    w13.innerHTML=window.m52d[i].feedback;
+                    w13.innerHTML=m52d[i].feedback;
                     var w14=document.createElement('td');
                     w14.innerHTML="--";
                     var w15=document.createElement('button');
